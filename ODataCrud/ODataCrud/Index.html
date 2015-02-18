@@ -1,37 +1,39 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en" ng-app="app">
 <head>
     <title>ODataCrud</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
-    <div>
-        <input type="text" name="Name" id="Name" />
-        <input type="text" name="Price" id="Price" />
-        <input type="text" name="Category" id="Category" />
-        <input type="button" value="submit" id="submit" />
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#/">Odata Crud with Angular</a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#/"><i class="fa fa-home"></i>Home</a></li>
+                    <li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
+                    <li><a href="#contact"><i class="fa fa-comment"></i> Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div ng-controller="productController" class="container container-fluid">
+        <div ng-view>
+        </div>
     </div>
     <script type="text/javascript" src="Scripts/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#submit").click(function () {
-                var product = {
-                    Name: $("#Name").val(),
-                    Price: $("#Price").val(),
-                    Category: $("#Category").val()
-                };
-
-                //$.post("/odata/Products", product)
-                //    .done(function (data) {
-                //        console.log(data);
-                //    });
-                $.getJSON('/odata/Products').done(function (data) {
-                    console.log(data.value);
-                }).fail(function (data) {
-                    console.log(data);
-                });
-            });
-
-        });
-    </script>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="Scripts/angular-route.min.js"></script>
+    <script type="text/javascript" src="Scripts/app/productController.js"></script>
 </body>
 </html>

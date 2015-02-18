@@ -1,0 +1,25 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in productList">
+                        <td>{{product.Id}}</td>
+                        <td>{{product.Name}}</td>
+                        <td>{{product.Price}}</td>
+                        <td>{{product.Category}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
