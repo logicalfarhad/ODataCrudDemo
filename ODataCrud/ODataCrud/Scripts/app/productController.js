@@ -1,22 +1,15 @@
-﻿var app = angular.module('app', ['ngRoute']);
-app.controller('productController', function ($scope, $http) {
-    $scope.message = "how are you?";
-    $http.get('/odata/Products').success(function (data) {
-        $scope.productList = data.value;
-    })
-            .error(function (error) {
-                console.log(error);
-            });
-});
-app.config(function ($routeProvider) {
-    $routeProvider
-        .when('/about', {
-            templateUrl: 'Scripts/templates/about.html'
-        })
-        .when('/contact', {
-            templateUrl: 'Scripts/templates/contact.html'
-        })
-        .when('/', {
-            templateUrl: 'Scripts/templates/home.html'
-        });
-});
+﻿(function () {
+    var app = angular.module('app');
+    var productController = function ($scope, $http) {
+        $scope.message = "how are you?";
+        var onProductComplete = function (response) {
+            $scope.productList = response.data.value;
+        };
+        var onError = function (response) {
+            $scope.message = "No Product Found";
+        };
+        $http.get('/odata/Products').then(onProductComplete, onError);
+    }
+    app.controller("productController", productController);
+}());
+

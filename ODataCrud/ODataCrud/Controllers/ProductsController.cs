@@ -64,10 +64,6 @@ namespace ODataCrud.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
             }
             return Updated(entity);
         }

@@ -10,7 +10,7 @@
                         <th>Category</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody ng-controller="productController">
                     <tr ng-repeat="product in productList">
                         <td>{{product.Id}}</td>
                         <td>{{product.Name}}</td>
@@ -21,5 +21,4 @@
             </table>
         </div>
     </div>
-
 </div>
