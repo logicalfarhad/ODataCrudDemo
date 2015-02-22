@@ -1,12 +1,26 @@
 ﻿(function () {
     var app = angular.module('app', ['ui.router']);
     app.config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise("/home");
+        $urlRouterProvider.otherwise("/");
         $stateProvider
             .state('home', {
                 url: "/",
                 templateUrl: 'Scripts/templates/home.html'
-            }).state('about', {
+            })
+            .state('add', {
+                url: "person/new",
+                templateUrl: "Scripts/templates/create.html",
+                controller: "productController"
+            }).state('edit', {
+                url: '/person/edit/:Id',
+                templateUrl: 'Scripts/templates/edit.html',
+                controller: "productController"
+            }).state('delete', {
+                url: '/person/delete/:Id',
+                templateUrl: 'Scripts/templates/delete.html',
+                controller: "productController"
+            })
+            .state('about', {
                 url: '/about',
                 templateUrl: 'Scripts/templates/about.html',
                 controller: "productController"
