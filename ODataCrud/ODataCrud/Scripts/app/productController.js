@@ -1,6 +1,6 @@
 ﻿(function () {
-    var app = angular.module('app');
     var productController = function ($scope, $http, $stateParams) {
+        $scope.editUrl = $stateParams.Id;
         $scope.productList = [];
         var onProductComplete = function (response) {
             $scope.productList = response.data.value;
@@ -20,6 +20,6 @@
             $http.post("/odata/Products", product).then(onProductSave, onSaveError);
         }
     }
-    app.controller("productController", ['$scope', '$http', productController]);
+    angular.module('app').controller('productController', productController);
 }());
 
