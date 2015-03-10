@@ -11,25 +11,25 @@ namespace ODataCrud.Controllers
 {
     public class ProductsController : ODataController
     {
-        ProductsContext db = new ProductsContext();
+        readonly ProductsContext _db = new ProductsContext();
         private bool ProductExists(int key)
         {
-            return db.Products.Any(p => p.Id == key);
+            return _db.Products.Any(p => p.Id == key);
         }
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
         [EnableQuery]
         public IQueryable<Product> Get()
         {
-            return db.Products;
+            return _db.Products;
         }
         [EnableQuery]
         public SingleResult<Product> Get([FromODataUri] int key)
         {
-            IQueryable<Product> result = db.Products.Where(p => p.Id == key);
+            IQueryable<Product> result = _db.Products.Where(p => p.Id == key);
             return SingleResult.Create(result);
         }
         public async Task<IHttpActionResult> Post(Product product)
@@ -38,8 +38,8 @@ namespace ODataCrud.Controllers
             {
                 return BadRequest(ModelState);
             }
-            db.Products.Add(product);
-            await db.SaveChangesAsync();
+            _db.Products.Add(product);
+            await _db.SaveChangesAsync();
             return Created(product);
         }
         public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Product> product)
@@ -48,7 +48,7 @@ namespace ODataCrud.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var entity = await db.Products.FindAsync(key);
+            var entity = await _db.Products.FindAsync(key);
             if (entity == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace ODataCrud.Controllers
             product.Patch(entity);
             try
             {
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,10 +77,10 @@ namespace ODataCrud.Controllers
             {
                 return BadRequest();
             }
-            db.Entry(update).State = EntityState.Modified;
+            _db.Entry(update).State = EntityState.Modified;
             try
             {
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -97,13 +97,13 @@ namespace ODataCrud.Controllers
         }
         public async Task<IHttpActionResult> Delete([FromODataUri] int key)
         {
-            var product = await db.Products.FindAsync(key);
+            var product = await _db.Products.FindAsync(key);
             if (product == null)
             {
                 return NotFound();
             }
-            db.Products.Remove(product);
-            await db.SaveChangesAsync();
+            _db.Products.Remove(product);
+            await _db.SaveChangesAsync();
             return StatusCode(HttpStatusCode.NoContent);
         }
     }
